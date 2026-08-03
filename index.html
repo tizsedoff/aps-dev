@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APS Developer — Sitios web que funcionan</title>
+<meta name="description" content="APS Developer: agencia de desarrollo web. Configurá tu proyecto y recibí un presupuesto al instante.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #0b0b0d;
+  --bg-elev: #131316;
+  --bg-elev-2: #1a1a1e;
+  --line: rgba(244,244,242,0.09);
+  --line-strong: rgba(244,244,242,0.16);
+  --chrome-1: #f4f4f2;
+  --chrome-2: #b9bcc2;
+  --chrome-3: #7a7d84;
+  --signal: #6e7bff;
+  --signal-dim: rgba(110,123,255,0.14);
+  --ok: #6effa3;
+  --radius: 14px;
+  --disp: 'Space Grotesk', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--chrome-1);
+  font-family:var(--body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none;}
+img{display:block; max-width:100%;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--chrome-3);
+}
+.eyebrow span{color:var(--signal);}
+h1,h2,h3{font-family:var(--disp); font-weight:600; letter-spacing:-0.01em;}
+::selection{background:var(--signal); color:#fff;}
+
+/* cursor motif */
+.cursor{
+  display:inline-block;
+  width:0.5em;
+  background:var(--signal);
+  margin-left:4px;
+  animation:blink 1.1s steps(1) infinite;
+}
+@keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+/* header */
+header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(11,11,13,0.72);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto;}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand img{height:26px; width:auto;}
+.navlinks{display:flex; align-items:center; gap:32px;}
+.navlinks a{
+  font-family:var(--mono); font-size:13px; color:var(--chrome-2);
+  letter-spacing:0.02em; transition:color .2s;
+}
+.navlinks a:hover{color:var(--chrome-1);}
+.navcta{
+  font-family:var(--mono); font-size:13px; padding:9px 18px;
+  border:1px solid var(--line-strong); border-radius:999px;
+  color:var(--chrome-1); transition:all .2s;
+}
+.navcta:hover{border-color:var(--signal); background:var(--signal-dim);}
+.navtoggle{display:none;}
+
+/* hero */
+.hero{
+  min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center;
+  position:relative;
+  padding:140px 0 80px;
+}
+.hero-bg{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(600px 400px at 15% 20%, rgba(110,123,255,0.10), transparent 60%),
+    radial-gradient(500px 350px at 85% 75%, rgba(244,244,242,0.05), transparent 60%);
+}
+.hero-inner{position:relative; z-index:1;}
+.hero h1{
+  font-size:clamp(38px, 6vw, 78px);
+  line-height:1.03;
+  margin:22px 0 24px;
+  max-width:820px;
+}
+.hero h1 .grad{
+  background:linear-gradient(120deg, var(--chrome-1), var(--chrome-3));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero p.lead{
+  font-size:18px; color:var(--chrome-2); max-width:520px; margin-bottom:36px;
+}
+.hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+.btn{
+  font-family:var(--mono); font-size:14px; letter-spacing:0.02em;
+  padding:14px 26px; border-radius:10px; display:inline-flex; align-items:center; gap:8px;
+  transition:all .2s; cursor:pointer; border:1px solid transparent;
+}
+.btn-primary{background:var(--chrome-1); color:#0b0b0d;}
+.btn-primary:hover{background:var(--signal); color:#fff; transform:translateY(-1px);}
+.btn-ghost{border-color:var(--line-strong); color:var(--chrome-1);}
+.btn-ghost:hover{border-color:var(--chrome-2); background:rgba(255,255,255,0.03);}
+
+.hero-mark{
+  position:absolute; right:28px; top:50%; transform:translateY(-50%);
+  opacity:0.06; width:min(38vw, 480px); z-index:0; pointer-events:none;
+}
+
+/* section shell */
+section{padding:120px 0; position:relative; border-top:1px solid var(--line);}
+.section-head{margin-bottom:56px; max-width:640px;}
+.section-head h2{font-size:clamp(28px,4vw,42px); margin-top:14px;}
+.section-head p{color:var(--chrome-2); margin-top:16px; font-size:16px;}
+
+/* about */
+.about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:start;}
+.about-grid p{color:var(--chrome-2); font-size:16px; margin-bottom:18px;}
+.about-grid strong{color:var(--chrome-1); font-weight:600;}
+.stat-card{
+  background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius);
+  padding:26px; margin-bottom:16px;
+}
+.stat-card .num{font-family:var(--mono); font-size:34px; color:var(--signal); font-weight:600;}
+.stat-card .lbl{font-size:13px; color:var(--chrome-3); margin-top:6px;}
+
+/* services */
+.services-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.service-card{background:var(--bg); padding:32px 26px; transition:background .25s;}
+.service-card:hover{background:var(--bg-elev);}
+.service-card .tag{font-family:var(--mono); font-size:12px; color:var(--signal); letter-spacing:0.08em;}
+.service-card h3{font-size:19px; margin:14px 0 10px;}
+.service-card p{font-size:14px; color:var(--chrome-3); line-height:1.5;}
+
+/* roadmap teaser */
+.teaser{
+  display:flex; align-items:center; gap:16px; margin-top:40px;
+  padding:16px 20px; border:1px dashed var(--line-strong); border-radius:12px;
+  background:var(--bg-elev); max-width:640px;
+}
+.teaser .dot{width:8px; height:8px; border-radius:50%; background:var(--ok); flex:none; box-shadow:0 0 0 4px rgba(110,239,163,0.12);}
+.teaser p{font-size:13.5px; color:var(--chrome-2); font-family:var(--mono);}
+.teaser b{color:var(--chrome-1);}
+
+/* configurator */
+.config-shell{
+  display:grid; grid-template-columns:1fr 420px; gap:48px; align-items:start;
+}
+.config-form{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); padding:36px;}
+.step{margin-bottom:38px;}
+.step:last-child{margin-bottom:0;}
+.step-head{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+.step-num{
+  font-family:var(--mono); font-size:12px; color:var(--signal);
+  border:1px solid var(--signal); border-radius:6px; width:26px; height:26px;
+  display:flex; align-items:center; justify-content:center; flex:none;
+}
+.step-head h4{font-family:var(--disp); font-size:16px; font-weight:600;}
+label.field{display:block; margin-bottom:16px;}
+label.field span.lbl{display:block; font-size:13px; color:var(--chrome-2); margin-bottom:7px; font-family:var(--mono);}
+input[type=text], input[type=email], input[type=tel], textarea, select{
+  width:100%; background:var(--bg); border:1px solid var(--line-strong); border-radius:8px;
+  padding:12px 14px; color:var(--chrome-1); font-family:var(--body); font-size:14.5px;
+  transition:border-color .2s;
+}
+input:focus, textarea:focus, select:focus{outline:none; border-color:var(--signal);}
+textarea{resize:vertical; min-height:84px;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.check-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.check-item{
+  display:flex; align-items:flex-start; gap:10px; padding:12px 14px;
+  border:1px solid var(--line-strong); border-radius:8px; cursor:pointer; transition:all .18s;
+  font-size:13.5px;
+}
+.check-item:hover{border-color:var(--chrome-3);}
+.check-item.checked{border-color:var(--signal); background:var(--signal-dim);}
+.check-item input{margin-top:2px; accent-color:var(--signal);}
+.check-item .price{margin-left:auto; font-family:var(--mono); color:var(--chrome-3); font-size:12px; white-space:nowrap;}
+.check-item.disabled{opacity:0.55; cursor:not-allowed;}
+.style-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.style-item{
+  border:1px solid var(--line-strong); border-radius:8px; padding:14px 10px; text-align:center;
+  cursor:pointer; font-family:var(--mono); font-size:12.5px; transition:all .18s;
+}
+.style-item.active{border-color:var(--signal); background:var(--signal-dim); color:var(--chrome-1);}
+.style-item:not(.active){color:var(--chrome-3);}
+.file-drop{
+  border:1px dashed var(--line-strong); border-radius:8px; padding:20px; text-align:center;
+  cursor:pointer; font-size:13px; color:var(--chrome-3); transition:all .18s;
+}
+.file-drop:hover{border-color:var(--signal); color:var(--chrome-2);}
+.file-list{margin-top:10px; font-family:var(--mono); font-size:12px; color:var(--chrome-2);}
+.file-list div{padding:4px 0; border-bottom:1px solid var(--line);}
+.submit-row{margin-top:32px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+.err{color:#ff6e6e; font-size:12.5px; font-family:var(--mono); margin-top:6px; display:none;}
+
+/* sticky preview column */
+.config-side{position:sticky; top:96px; display:flex; flex-direction:column; gap:20px;}
+.preview-card{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+.preview-label{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px; border-bottom:1px solid var(--line);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em; color:var(--chrome-3); text-transform:uppercase;
+}
+.preview-label .live{display:flex; align-items:center; gap:6px; color:var(--ok);}
+.preview-label .live::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px rgba(110,239,163,0.15);}
+.browser-chrome{background:#111114; padding:10px 12px; display:flex; align-items:center; gap:8px;}
+.bc-dot{width:9px; height:9px; border-radius:50%;}
+.bc-dot:nth-child(1){background:#ff5f56;} .bc-dot:nth-child(2){background:#ffbd2e;} .bc-dot:nth-child(3){background:#27c93f;}
+.bc-url{
+  flex:1; background:#1c1c20; border-radius:6px; padding:5px 10px; font-family:var(--mono);
+  font-size:10.5px; color:var(--chrome-3); margin-left:6px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.mini-site{aspect-ratio:4/3; overflow:hidden; position:relative; transition:background .3s, color .3s;}
+.mini-nav{display:flex; align-items:center; gap:12px; padding:10px 14px; font-size:8px; font-family:var(--mono);}
+.mini-nav .m-brand{font-weight:700; font-size:9px;}
+.mini-nav .m-links{display:flex; gap:9px; margin-left:auto; opacity:0.8;}
+.mini-hero{padding:20px 16px; height:calc(100% - 32px); display:flex; flex-direction:column; justify-content:center;}
+.mini-hero .m-tag{font-size:7px; font-family:var(--mono); letter-spacing:0.12em; opacity:0.6; margin-bottom:8px;}
+.mini-hero .m-title{font-family:var(--disp); font-size:16px; font-weight:700; line-height:1.15; margin-bottom:8px;}
+.mini-hero .m-sub{font-size:8px; opacity:0.6; max-width:70%; margin-bottom:14px;}
+.mini-hero .m-btn{font-size:7.5px; font-family:var(--mono); padding:6px 12px; border-radius:20px; width:fit-content;}
+
+.calc-card{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
+.calc-rows{margin:14px 0; max-height:180px; overflow-y:auto;}
+.calc-row{display:flex; justify-content:space-between; font-size:12.5px; padding:6px 0; border-bottom:1px solid var(--line); color:var(--chrome-2);}
+.calc-row span:last-child{font-family:var(--mono); color:var(--chrome-1);}
+.calc-total{display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; padding-top:14px; border-top:1px solid var(--line-strong);}
+.calc-total .lbl{font-size:13px; color:var(--chrome-2);}
+.calc-total .num{font-family:var(--mono); font-size:28px; color:var(--signal); font-weight:600;}
+.calc-note{font-size:11px; color:var(--chrome-3); margin-top:10px; line-height:1.5;}
+.calc-maint{font-size:11.5px; color:var(--chrome-3); margin-top:8px; font-family:var(--mono);}
+
+/* stepper (cantidad de entidades) */
+.stepper{display:flex; align-items:center; gap:14px; background:var(--bg); border:1px solid var(--line-strong); border-radius:8px; padding:8px 12px; width:fit-content;}
+.stepper button{
+  width:28px; height:28px; border-radius:6px; border:1px solid var(--line-strong); background:var(--bg-elev-2);
+  color:var(--chrome-1); font-family:var(--mono); font-size:15px; cursor:pointer; transition:all .15s;
+}
+.stepper button:hover{border-color:var(--signal); color:var(--signal);}
+.stepper .count{font-family:var(--mono); font-size:16px; min-width:22px; text-align:center;}
+.stepper .stepper-lbl{font-family:var(--mono); font-size:12px; color:var(--chrome-3);}
+
+/* abm entity chips */
+.entity-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+.entity-chip{
+  font-family:var(--mono); font-size:12px; padding:6px 12px; border-radius:20px;
+  border:1px solid var(--line-strong); color:var(--chrome-2); display:flex; align-items:center; gap:8px;
+}
+.entity-chip button{background:none; border:none; color:var(--chrome-3); cursor:pointer; font-size:13px; line-height:1;}
+.entity-chip button:hover{color:#ff6e6e;}
+.entity-add{display:flex; gap:8px; margin-top:10px;}
+.entity-add input{flex:1;}
+.entity-add button{
+  font-family:var(--mono); font-size:13px; padding:0 16px; border-radius:8px;
+  border:1px solid var(--line-strong); background:var(--bg-elev-2); color:var(--chrome-1); cursor:pointer;
+}
+.entity-add button:hover{border-color:var(--signal); color:var(--signal);}
+
+/* contact / footer */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+.contact-card{border:1px solid var(--line); border-radius:var(--radius); padding:28px; background:var(--bg-elev);}
+.contact-card .k{font-family:var(--mono); font-size:11.5px; color:var(--chrome-3); letter-spacing:0.08em; text-transform:uppercase;}
+.contact-card .v{font-size:18px; margin-top:8px; font-family:var(--disp);}
+.contact-card a.v:hover{color:var(--signal);}
+footer{border-top:1px solid var(--line); padding:40px 0; }
+.foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;}
+.foot-row .brand img{height:20px;}
+.foot-row p{font-size:12.5px; color:var(--chrome-3); font-family:var(--mono);}
+
+@media (max-width: 900px){
+  .navlinks{display:none;}
+  .about-grid, .config-shell, .contact-grid{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .config-side{position:static;}
+  .check-grid, .style-grid{grid-template-columns:1fr;}
+  .grid2{grid-template-columns:1fr;}
+  .hero-mark{display:none;}
+}
+@media (max-width:560px){
+  .services-grid{grid-template-columns:1fr;}
+  section{padding:80px 0;}
+  .config-form{padding:24px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .cursor{animation:none; opacity:1;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand"><img src="assets/logo.jpeg" alt="APS Developer"></a>
+    <div class="navlinks">
+      <a href="#nosotros">Qué hacemos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#configurador">Configurador</a>
+      <a href="#abm">ABM / Panel</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="#configurador" class="navcta">Iniciar proyecto</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <img src="assets/logo.jpeg" alt="" class="hero-mark">
+  <div class="wrap hero-inner">
+    <p class="eyebrow">AGENCIA DE DESARROLLO WEB <span>// MISIONES, AR</span></p>
+    <h1>Convertimos tu negocio en un sitio que <span class="grad">vende, explica y responde</span><span class="cursor">&nbsp;</span></h1>
+    <p class="lead">Diseñamos y programamos sitios a medida: institucionales, tiendas con pedido por WhatsApp y paneles de administración. Sin plantillas genéricas.</p>
+    <div class="hero-ctas">
+      <a href="#configurador" class="btn btn-primary">Configurar mi proyecto →</a>
+      <a href="#nosotros" class="btn btn-ghost">Ver qué hacemos</a>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Quiénes somos</p>
+      <h2>APS Developer</h2>
+      <p>Somos una agencia de desarrollo web dirigida por <strong style="color:var(--chrome-1)">Tiziano Sedoff</strong>. Diseñamos, programamos y mantenemos sitios web para negocios reales — desde la primera línea de código hasta el día a día ya publicado.</p>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>No partimos de una plantilla y la rellenamos con tu logo. Cada proyecto empieza por entender el negocio: a quién le vende, cómo quiere que lo contacten y qué necesita resolver el sitio el primer día que esté online.</p>
+        <p>Nos ocupamos de <strong>todo el proceso</strong>: diseño visual, desarrollo, conexión con WhatsApp para pedidos y consultas, paneles de administración cuando hacen falta, y el mantenimiento posterior al lanzamiento.</p>
+        <div class="teaser">
+          <div class="dot"></div>
+          <p><b>Próximamente:</b> una automatización donde la IA redacta el prompt técnico de tu proyecto, listo para construirlo.</p>
+        </div>
+      </div>
+      <div>
+        <div class="stat-card">
+          <div class="num">100%</div>
+          <div class="lbl">A medida — sin plantillas armadas de antemano</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">1:1</div>
+          <div class="lbl">Trato directo con Tiziano durante todo el proyecto</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">&lt;24h</div>
+          <div class="lbl">Tiempo típico de respuesta por WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Qué hacemos</p>
+      <h2>Servicios</h2>
+      <p>Cuatro formas de trabajar juntos, todas configurables abajo.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="tag">01 · SITIO</div>
+        <h3>Institucional</h3>
+        <p>Presentá tu negocio, tus servicios y tus datos de contacto en un sitio rápido y bien construido.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">02 · TIENDA</div>
+        <h3>E-commerce</h3>
+        <p>Catálogo de productos con carrito y pedidos que te llegan directo por WhatsApp, sin pasarela de pago.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">03 · PANEL</div>
+        <h3>Administración</h3>
+        <p>Cargá y editá productos, fotos y contenido vos mismo, sin tocar código, con base de datos real.</p>
+      </div>
+      <div class="service-card">
+        <div class="tag">04 · SOPORTE</div>
+        <h3>Mantenimiento</h3>
+        <p>Cambios, actualizaciones y acompañamiento continuo una vez que el sitio ya está publicado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="configurador">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Armá tu proyecto</p>
+      <h2>Configurador al 110%</h2>
+      <p>Contanos sobre tu negocio y elegí lo que necesitás. La preview y el presupuesto se actualizan en vivo. Al final, te lo enviamos por WhatsApp.</p>
+    </div>
+
+    <div class="config-shell">
+      <form class="config-form" id="configForm">
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">01</div><h4>Tu negocio</h4></div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Nombre del negocio *</span>
+              <input type="text" id="bizName" placeholder="Ej: Panadería del Sol" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Rubro</span>
+              <select id="bizType">
+                <option value="comercio">Comercio / tienda</option>
+                <option value="servicios">Servicios profesionales</option>
+                <option value="gastronomia">Gastronomía</option>
+                <option value="salud">Salud / belleza</option>
+                <option value="otro">Institucional / otro</option>
+              </select>
+            </label>
+          </div>
+          <label class="field">
+            <span class="lbl">Contanos de tu negocio (a qué te dedicás, a quién le vendés, qué necesitás resolver)</span>
+            <textarea id="bizDesc" placeholder="Cuanto más contexto nos des, más ajustado va a ser el proyecto."></textarea>
+          </label>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">02</div><h4>Estilo visual</h4></div>
+          <div class="style-grid" id="styleGrid">
+            <div class="style-item active" data-style="dark">Oscuro / bold</div>
+            <div class="style-item" data-style="light">Minimalista claro</div>
+            <div class="style-item" data-style="warm">Cálido / cercano</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">03</div><h4>Páginas y secciones</h4></div>
+          <div class="check-grid" id="pagesGrid">
+            <label class="check-item disabled"><input type="checkbox" checked disabled> Inicio <span class="price">incluido</span></label>
+            <label class="check-item disabled"><input type="checkbox" checked disabled> Contacto <span class="price">incluido</span></label>
+            <label class="check-item" data-price="15000"><input type="checkbox" value="Nosotros"> Nosotros <span class="price">$15.000</span></label>
+            <label class="check-item" data-price="20000"><input type="checkbox" value="Servicios/Productos"> Servicios / productos <span class="price">$20.000</span></label>
+            <label class="check-item" data-price="180000"><input type="checkbox" value="Tienda online"> Tienda online + carrito <span class="price">$180.000</span></label>
+            <label class="check-item" data-price="40000"><input type="checkbox" value="Blog"> Blog / novedades <span class="price">$40.000</span></label>
+            <label class="check-item" data-price="150000"><input type="checkbox" value="Panel admin"> Panel de administrador <span class="price">$150.000</span></label>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">04</div><h4>Funcionalidades extra</h4></div>
+          <div class="check-grid" id="featGrid">
+            <label class="check-item" data-price="60000"><input type="checkbox" value="Multilenguaje"> Multilenguaje <span class="price">$60.000</span></label>
+            <label class="check-item" data-price="50000"><input type="checkbox" value="Animaciones"> Animaciones avanzadas <span class="price">$50.000</span></label>
+            <label class="check-item" data-price="40000"><input type="checkbox" value="SEO avanzado"> SEO avanzado <span class="price">$40.000</span></label>
+            <label class="check-item" data-price="15000" data-monthly="true"><input type="checkbox" value="Mantenimiento"> Mantenimiento mensual <span class="price">$15.000/mes</span></label>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">05</div><h4>Muestras y referencias</h4></div>
+          <label class="field" for="fileInput">
+            <div class="file-drop" id="dropZone">Subí fotos, logos o sitios que te gusten como referencia (opcional)</div>
+          </label>
+          <input type="file" id="fileInput" accept="image/*" multiple style="display:none">
+          <div class="file-list" id="fileList"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">06</div><h4>Contacto</h4></div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Tu nombre *</span>
+              <input type="text" id="contactName" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Tu teléfono</span>
+              <input type="tel" id="contactPhone" placeholder="Opcional">
+            </label>
+          </div>
+          <label class="field">
+            <span class="lbl">Tu correo *</span>
+            <input type="email" id="contactEmail" placeholder="nombre@correo.com" required>
+          </label>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary">Enviar pedido por WhatsApp →</button>
+          <span class="err" id="formErr">Completá negocio, nombre y correo para continuar.</span>
+        </div>
+      </form>
+
+      <div class="config-side">
+        <div class="preview-card">
+          <div class="preview-label"><span>Mini preview</span><span class="live">en vivo</span></div>
+          <div class="browser-chrome">
+            <div class="bc-dot"></div><div class="bc-dot"></div><div class="bc-dot"></div>
+            <div class="bc-url" id="previewUrl">tunegocio.com</div>
+          </div>
+          <div class="mini-site" id="miniSite">
+            <div class="mini-nav" id="miniNav"></div>
+            <div class="mini-hero" id="miniHero">
+              <div class="m-tag" id="miniTag">RUBRO</div>
+              <div class="m-title" id="miniTitle">Tu negocio</div>
+              <div class="m-sub" id="miniSub">Así se va a ver la portada de tu sitio, según lo que elijas.</div>
+              <div class="m-btn" id="miniBtn">Contactar</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card">
+          <div class="preview-label" style="padding:0 0 12px; border:none;"><span>Calculadora</span></div>
+          <div class="calc-rows" id="calcRows"></div>
+          <div class="calc-total">
+            <span class="lbl">Estimado total</span>
+            <span class="num" id="calcTotal">$0</span>
+          </div>
+          <div class="calc-maint" id="calcMaint"></div>
+          <p class="calc-note">Presupuesto orientativo. El valor final se confirma por WhatsApp según el alcance definitivo del proyecto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="abm">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Servicio a medida</p>
+      <h2>Calculadora de ABM / Panel de administración</h2>
+      <p>Un ABM es el panel donde vos mismo cargás, editás y borrás la información de tu negocio (Alta, Baja, Modificación) sin tocar código: productos, turnos, pedidos, usuarios, lo que necesites. Armá el tuyo y contratalo directo.</p>
+    </div>
+
+    <div class="config-shell">
+      <div class="config-form">
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">01</div><h4>¿Qué vas a gestionar?</h4></div>
+          <p style="font-size:13px;color:var(--chrome-3);margin-bottom:10px;">Agregá un módulo por cada tipo de dato que necesites administrar (ej: Productos, Pedidos, Usuarios, Turnos).</p>
+          <div class="entity-add">
+            <input type="text" id="entityInput" placeholder="Ej: Productos">
+            <button type="button" id="entityAddBtn">+ Agregar módulo</button>
+          </div>
+          <div class="entity-chips" id="entityChips"></div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">02</div><h4>Usuarios y permisos</h4></div>
+          <div class="stepper">
+            <button type="button" id="userMinus">−</button>
+            <span class="count" id="userCount">1</span>
+            <button type="button" id="userPlus">+</button>
+            <span class="stepper-lbl">roles de usuario distintos (ej: admin, empleado)</span>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">03</div><h4>Funcionalidades del panel</h4></div>
+          <div class="check-grid" id="abmFeatGrid">
+            <label class="check-item" data-price="50000"><input type="checkbox" value="Dashboard con estadísticas"> Dashboard con estadísticas <span class="price">$50.000</span></label>
+            <label class="check-item" data-price="30000"><input type="checkbox" value="Exportar a Excel/PDF"> Exportar a Excel / PDF <span class="price">$30.000</span></label>
+            <label class="check-item" data-price="40000"><input type="checkbox" value="Notificaciones automáticas"> Notificaciones (mail/WhatsApp) <span class="price">$40.000</span></label>
+            <label class="check-item" data-price="35000"><input type="checkbox" value="Carga de imágenes"> Carga de imágenes/archivos <span class="price">$35.000</span></label>
+            <label class="check-item" data-price="45000"><input type="checkbox" value="Búsqueda y filtros avanzados"> Búsqueda y filtros avanzados <span class="price">$45.000</span></label>
+            <label class="check-item" data-price="15000" data-monthly="true"><input type="checkbox" value="Mantenimiento mensual"> Mantenimiento mensual <span class="price">$15.000/mes</span></label>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">04</div><h4>Contacto</h4></div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Tu nombre *</span>
+              <input type="text" id="abmContactName" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Tu correo *</span>
+              <input type="email" id="abmContactEmail" required>
+            </label>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button type="button" class="btn btn-primary" id="abmSubmit">Contratar por WhatsApp →</button>
+          <span class="err" id="abmErr">Agregá al menos un módulo y completá nombre y correo.</span>
+        </div>
+      </div>
+
+      <div class="config-side">
+        <div class="calc-card">
+          <div class="preview-label" style="padding:0 0 12px; border:none;"><span>Calculadora ABM</span></div>
+          <div class="calc-rows" id="abmCalcRows"></div>
+          <div class="calc-total">
+            <span class="lbl">Estimado total</span>
+            <span class="num" id="abmCalcTotal">$0</span>
+          </div>
+          <div class="calc-maint" id="abmCalcMaint"></div>
+          <p class="calc-note">Incluye base de datos, login y panel para cargar/editar/borrar información. Presupuesto orientativo, se confirma por WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Contacto directo</p>
+      <h2>¿Preferís hablar directo?</h2>
+      <p>También podés escribirnos sin pasar por el configurador.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="k">WhatsApp</div>
+        <a class="v" href="https://wa.me/5493755301413" target="_blank" rel="noopener">+54 9 3755 30-1413</a>
+      </div>
+      <div class="contact-card">
+        <div class="k">Correo</div>
+        <a class="v" href="mailto:tizsedoff@gmail.com">tizsedoff@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <a href="#top" class="brand"><img src="assets/logo.jpeg" alt="APS Developer"></a>
+    <p>APS Developer — Tiziano Sedoff · Misiones, Argentina</p>
+  </div>
+</footer>
+
+<script>
+// ------------------------------------------------------------------
+// CONFIGURACIÓN EDITABLE: cambiá estos valores para ajustar el negocio
+// ------------------------------------------------------------------
+const CONFIG = {
+  whatsapp: '5493755301413', // número con código de país (54) + 9 + área + número
+  email: 'tizsedoff@gmail.com',
+  basePrice: 120000,
+  currencyLabel: '$'
+};
+
+const styleThemes = {
+  dark:  { bg:'#0e0e10', fg:'#f4f4f2', accent:'#6e7bff', navbg:'#0e0e10' },
+  light: { bg:'#f4f4f2', fg:'#101012', accent:'#3d5afe', navbg:'#ffffff' },
+  warm:  { bg:'#2a221c', fg:'#f6ede1', accent:'#e8a24d', navbg:'#2a221c' }
+};
+
+const bizTypeCopy = {
+  comercio:  { tag:'COMERCIO', sub:'Mostrá tu catálogo y recibí pedidos directo por WhatsApp.' },
+  servicios: { tag:'SERVICIOS', sub:'Contale a tus clientes qué hacés y cómo contactarte.' },
+  gastronomia: { tag:'GASTRONOMÍA', sub:'Menú, ubicación y pedidos, todo en un solo lugar.' },
+  salud: { tag:'SALUD / BELLEZA', sub:'Turnos, servicios y contacto, con una imagen prolija.' },
+  otro: { tag:'INSTITUCIONAL', sub:'Presentá tu negocio con una imagen clara y profesional.' }
+};
+
+let selectedStyle = 'dark';
+let attachedFiles = [];
+
+const $ = (id) => document.getElementById(id);
+
+function fmt(n){
+  return CONFIG.currencyLabel + n.toLocaleString('es-AR');
+}
+
+function updateMiniSite(){
+  const theme = styleThemes[selectedStyle];
+  const site = $('miniSite');
+  site.style.background = theme.bg;
+  site.style.color = theme.fg;
+
+  const nav = $('miniNav');
+  nav.style.background = theme.navbg;
+  nav.style.borderBottom = '1px solid ' + (selectedStyle === 'light' ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)');
+
+  const bizName = $('bizName').value.trim() || 'Tu negocio';
+  const slug = bizName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'') || 'tunegocio';
+  $('previewUrl').textContent = slug + '.com';
+
+  const checkedPages = Array.from(document.querySelectorAll('#pagesGrid input:checked'))
+    .map(cb => cb.value).filter(Boolean);
+  const navItems = ['Inicio', ...checkedPages.filter(p => p !== 'Tienda online'), ...(checkedPages.includes('Tienda online') ? ['Tienda'] : []), 'Contacto'];
+  nav.innerHTML = `<span class="m-brand">${bizName.slice(0,18)}</span><span class="m-links">${navItems.map(p=>`<span>${p}</span>`).join('')}</span>`;
+
+  const type = bizTypeCopy[$('bizType').value] || bizTypeCopy.otro;
+  $('miniTag').textContent = type.tag;
+  $('miniTag').style.color = theme.accent;
+  $('miniTitle').textContent = bizName;
+  $('miniSub').textContent = type.sub;
+  $('miniBtn').textContent = checkedPages.includes('Tienda online') ? 'Ver productos' : 'Contactar';
+  $('miniBtn').style.background = theme.accent;
+  $('miniBtn').style.color = selectedStyle === 'light' ? '#fff' : (selectedStyle === 'warm' ? '#2a221c' : '#fff');
+}
+
+function updateCalculator(){
+  const rows = [];
+  let total = CONFIG.basePrice;
+  let monthly = 0;
+
+  rows.push({ label: 'Sitio base (Inicio + Contacto + diseño responsive)', price: CONFIG.basePrice });
+
+  document.querySelectorAll('#pagesGrid .check-item:not(.disabled) input:checked').forEach(cb => {
+    const item = cb.closest('.check-item');
+    const price = parseInt(item.dataset.price, 10);
+    total += price;
+    rows.push({ label: cb.value, price });
+  });
+
+  document.querySelectorAll('#featGrid .check-item input:checked').forEach(cb => {
+    const item = cb.closest('.check-item');
+    const price = parseInt(item.dataset.price, 10);
+    if(item.dataset.monthly){
+      monthly += price;
+    } else {
+      total += price;
+      rows.push({ label: cb.value, price });
+    }
+  });
+
+  $('calcRows').innerHTML = rows.map(r => `<div class="calc-row"><span>${r.label}</span><span>${fmt(r.price)}</span></div>`).join('');
+  $('calcTotal').textContent = fmt(total);
+  $('calcMaint').textContent = monthly > 0 ? `+ ${fmt(monthly)}/mes de mantenimiento` : '';
+
+  return { total, monthly, rows };
+}
+
+function refresh(){
+  updateMiniSite();
+  return updateCalculator();
+}
+
+// style picker
+document.querySelectorAll('.style-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.style-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    selectedStyle = item.dataset.style;
+    refresh();
+  });
+});
+
+// checkbox visual state + live update
+document.querySelectorAll('.check-item input').forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.closest('.check-item').classList.toggle('checked', cb.checked);
+    refresh();
+  });
+});
+
+['bizName','bizType','bizDesc'].forEach(id => {
+  $(id).addEventListener('input', refresh);
+  $(id).addEventListener('change', refresh);
+});
+
+// file drop
+$('dropZone').addEventListener('click', () => $('fileInput').click());
+$('fileInput').addEventListener('change', (e) => {
+  attachedFiles = Array.from(e.target.files);
+  $('fileList').innerHTML = attachedFiles.map(f => `<div>📎 ${f.name}</div>`).join('');
+});
+
+// submit -> build whatsapp message
+$('configForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const bizName = $('bizName').value.trim();
+  const contactName = $('contactName').value.trim();
+  const contactEmail = $('contactEmail').value.trim();
+
+  if(!bizName || !contactName || !contactEmail){
+    $('formErr').style.display = 'block';
+    return;
+  }
+  $('formErr').style.display = 'none';
+
+  const { total, monthly, rows } = refresh();
+  const bizType = $('bizType').selectedOptions[0].text;
+  const bizDesc = $('bizDesc').value.trim() || '—';
+  const contactPhone = $('contactPhone').value.trim() || '—';
+  const styleLabel = document.querySelector('.style-item.active').textContent.trim();
+  const itemsList = rows.map(r => `• ${r.label} (${fmt(r.price)})`).join('\n');
+  const filesNote = attachedFiles.length
+    ? `Adjunta ${attachedFiles.length} archivo(s) de referencia (los envío por este chat): ${attachedFiles.map(f=>f.name).join(', ')}`
+    : 'Sin archivos de referencia adjuntos.';
+
+  const message = `Hola APS Developer! Quiero armar un proyecto web.
+
+*Negocio:* ${bizName}
+*Rubro:* ${bizType}
+*Sobre el negocio:* ${bizDesc}
+*Estilo elegido:* ${styleLabel}
+
+*Incluye:*
+${itemsList}
+
+*Estimado:* ${fmt(total)}${monthly > 0 ? ` + ${fmt(monthly)}/mes` : ''}
+
+${filesNote}
+
+*Mi contacto:*
+Nombre: ${contactName}
+Correo: ${contactEmail}
+Teléfono: ${contactPhone}`;
+
+  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+});
+
+refresh();
+
+// ------------------------------------------------------------------
+// ABM / Panel de administración: calculadora + contratación
+// ------------------------------------------------------------------
+const ABM_CONFIG = {
+  baseSetup: 100000,     // base: login + 1 módulo simple
+  perExtraEntity: 35000, // cada módulo adicional
+  perExtraRole: 45000    // cada rol de usuario extra por encima del primero
+};
+
+let abmEntities = [];
+let abmUsers = 1;
+
+function renderEntityChips(){
+  $('entityChips').innerHTML = abmEntities.map((name, i) =>
+    `<span class="entity-chip">${name} <button type="button" data-idx="${i}">✕</button></span>`
+  ).join('');
+  document.querySelectorAll('.entity-chip button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      abmEntities.splice(parseInt(btn.dataset.idx, 10), 1);
+      renderEntityChips();
+      updateAbmCalculator();
+    });
+  });
+}
+
+$('entityAddBtn').addEventListener('click', () => {
+  const val = $('entityInput').value.trim();
+  if(val){
+    abmEntities.push(val);
+    $('entityInput').value = '';
+    renderEntityChips();
+    updateAbmCalculator();
+  }
+});
+$('entityInput').addEventListener('keydown', (e) => {
+  if(e.key === 'Enter'){ e.preventDefault(); $('entityAddBtn').click(); }
+});
+
+$('userPlus').addEventListener('click', () => { abmUsers++; $('userCount').textContent = abmUsers; updateAbmCalculator(); });
+$('userMinus').addEventListener('click', () => { if(abmUsers > 1){ abmUsers--; $('userCount').textContent = abmUsers; updateAbmCalculator(); } });
+
+document.querySelectorAll('#abmFeatGrid input').forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.closest('.check-item').classList.toggle('checked', cb.checked);
+    updateAbmCalculator();
+  });
+});
+
+function updateAbmCalculator(){
+  const rows = [];
+  let total = ABM_CONFIG.baseSetup;
+  let monthly = 0;
+
+  rows.push({ label: `Base (login + 1 módulo)`, price: ABM_CONFIG.baseSetup });
+
+  const extraEntities = Math.max(0, abmEntities.length - 1);
+  if(extraEntities > 0){
+    const price = extraEntities * ABM_CONFIG.perExtraEntity;
+    total += price;
+    rows.push({ label: `${extraEntities} módulo(s) adicional(es)`, price });
+  }
+
+  const extraRoles = Math.max(0, abmUsers - 1);
+  if(extraRoles > 0){
+    const price = extraRoles * ABM_CONFIG.perExtraRole;
+    total += price;
+    rows.push({ label: `${extraRoles} rol(es) de usuario extra`, price });
+  }
+
+  document.querySelectorAll('#abmFeatGrid input:checked').forEach(cb => {
+    const item = cb.closest('.check-item');
+    const price = parseInt(item.dataset.price, 10);
+    if(item.dataset.monthly){
+      monthly += price;
+    } else {
+      total += price;
+      rows.push({ label: cb.value, price });
+    }
+  });
+
+  $('abmCalcRows').innerHTML = rows.map(r => `<div class="calc-row"><span>${r.label}</span><span>${fmt(r.price)}</span></div>`).join('');
+  $('abmCalcTotal').textContent = fmt(total);
+  $('abmCalcMaint').textContent = monthly > 0 ? `+ ${fmt(monthly)}/mes de mantenimiento` : '';
+
+  return { total, monthly, rows };
+}
+
+$('abmSubmit').addEventListener('click', () => {
+  const name = $('abmContactName').value.trim();
+  const email = $('abmContactEmail').value.trim();
+
+  if(abmEntities.length === 0 || !name || !email){
+    $('abmErr').style.display = 'block';
+    return;
+  }
+  $('abmErr').style.display = 'none';
+
+  const { total, monthly, rows } = updateAbmCalculator();
+  const itemsList = rows.map(r => `• ${r.label} (${fmt(r.price)})`).join('\n');
+
+  const message = `Hola APS Developer! Quiero contratar un panel de administración (ABM).
+
+*Módulos a gestionar:* ${abmEntities.join(', ')}
+*Roles de usuario:* ${abmUsers}
+
+*Incluye:*
+${itemsList}
+
+*Estimado:* ${fmt(total)}${monthly > 0 ? ` + ${fmt(monthly)}/mes` : ''}
+
+*Mi contacto:*
+Nombre: ${name}
+Correo: ${email}`;
+
+  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+});
+
+updateAbmCalculator();
+</script>
+</body>
+</html>
