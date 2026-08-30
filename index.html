@@ -318,6 +318,7 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
       <a href="#servicios">Servicios</a>
       <a href="#configurador">Configurador</a>
       <a href="#abm">ABM / Panel</a>
+      <a href="#personalizar">Personalizar mi web</a>
       <a href="#contacto">Contacto</a>
     </div>
     <a href="#configurador" class="navcta">Iniciar proyecto</a>
@@ -612,6 +613,64 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
           <p class="calc-note">Incluye base de datos, login y panel para cargar/editar/borrar información. Presupuesto orientativo, se confirma por WhatsApp.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="personalizar">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">¿Ya tenés tu sitio con nosotros?</p>
+      <h2>Personalizá tu web</h2>
+      <p>¿Necesitás agregar, cambiar o sumar algo a tu sitio ya publicado? Contanos qué necesitás acá abajo y te respondemos por correo.</p>
+    </div>
+
+    <div class="config-shell" style="grid-template-columns:1fr; max-width:640px;">
+      <form class="config-form" id="personalizeForm">
+        <!-- Reemplazá el value de abajo por tu Access Key de https://web3forms.com -->
+        <input type="hidden" name="access_key" value="284dbbc3-7dab-4e7c-b576-d716b41bc4e7">
+        <input type="hidden" name="subject" value="Nueva solicitud de personalización de web">
+        <input type="checkbox" name="botcheck" style="display:none">
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">01</div><h4>Tus datos</h4></div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Nombre del negocio</span>
+              <input type="text" name="negocio" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Tu nombre</span>
+              <input type="text" name="nombre" required>
+            </label>
+          </div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Correo</span>
+              <input type="email" name="email" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Teléfono / WhatsApp</span>
+              <input type="tel" name="telefono">
+            </label>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">02</div><h4>Qué necesitás</h4></div>
+          <label class="field">
+            <span class="lbl">Contanos qué querés agregar o cambiar</span>
+            <textarea name="detalle" rows="5" required placeholder="Ej: agregar una sección de testimonios, cambiar las fotos del inicio, sumar un botón de reservas..."></textarea>
+          </label>
+        </div>
+
+        <div id="personalizeErr" style="display:none; color:#ff6e6e; font-size:13px; margin-bottom:12px; font-family:var(--mono);">Completá los campos obligatorios antes de enviar.</div>
+        <div id="personalizeOk" style="display:none; color:var(--ok); font-size:13px; margin-bottom:12px; font-family:var(--mono);">¡Listo! Recibimos tu solicitud, te respondemos pronto.</div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn btn-primary" id="personalizeBtn">Enviar solicitud →</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -940,6 +999,52 @@ Correo: ${email}`;
 });
 
 updateAbmCalculator();
+
+// ------------------------------------------------------------------
+// Personalizar mi web: envía el formulario por correo vía Web3Forms
+// ------------------------------------------------------------------
+$('personalizeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const errBox = $('personalizeErr');
+  const okBox = $('personalizeOk');
+  const btn = $('personalizeBtn');
+  errBox.style.display = 'none';
+  okBox.style.display = 'none';
+
+  const data = new FormData(form);
+  if(!data.get('negocio') || !data.get('nombre') || !data.get('email') || !data.get('detalle')){
+    errBox.textContent = 'Completá los campos obligatorios antes de enviar.';
+    errBox.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = 'Enviando...';
+
+  try{
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: data
+    });
+    const json = await res.json();
+    if(json.success){
+      okBox.style.display = 'block';
+      form.reset();
+    } else {
+      errBox.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
+      errBox.style.display = 'block';
+    }
+  } catch(err){
+    errBox.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
+    errBox.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+});
 </script>
 </body>
 </html>
