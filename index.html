@@ -627,9 +627,6 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
 
     <div class="config-shell" style="grid-template-columns:1fr; max-width:640px;">
       <form class="config-form" id="personalizeForm">
-        <!-- Reemplazá el value de abajo por tu Access Key de https://web3forms.com -->
-        <input type="hidden" name="access_key" value="284dbbc3-7dab-4e7c-b576-d716b41bc4e7">
-        <input type="hidden" name="subject" value="Nueva solicitud de personalización de web">
         <input type="checkbox" name="botcheck" style="display:none">
 
         <div class="step">
@@ -789,6 +786,7 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 // ------------------------------------------------------------------
 // CONFIGURACIÓN EDITABLE: cambiá estos valores para ajustar el negocio
@@ -813,6 +811,17 @@ const bizTypeCopy = {
   salud: { tag:'SALUD / BELLEZA', sub:'Turnos, servicios y contacto, con una imagen prolija.' },
   otro: { tag:'INSTITUCIONAL', sub:'Presentá tu negocio con una imagen clara y profesional.' }
 };
+
+// ------------------------------------------------------------------
+// EmailJS: reemplazá estos 4 valores por los tuyos (ver emailjs.com)
+// ------------------------------------------------------------------
+const EMAILJS_CONFIG = {
+  publicKey: 'H0rwPXe-K_14iNYzr',
+  serviceId: 'service_72b9zav',
+  templateAdmin: 'template_twyqc7w',
+  templateAutoreply: 'template_ci9l5y4'
+};
+emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
 
 let selectedStyle = 'dark';
 let attachedFiles = [];
@@ -1110,24 +1119,41 @@ $('personalizeForm').addEventListener('submit', async (e) => {
     return;
   }
 
+  // Honeypot anti-spam: si el bot completó este campo oculto, fingimos éxito y no enviamos nada.
+  if(data.get('botcheck')){
+    okBox.style.display = 'block';
+    form.reset();
+    return;
+  }
+
   btn.disabled = true;
   const originalText = btn.textContent;
   btn.textContent = 'Enviando...';
 
+  const templateParams = {
+    marca: data.get('marca'),
+    rubro: data.get('rubro'),
+    publico: data.get('publico'),
+    objetivo: data.get('objetivo'),
+    secciones: secciones.join(', ') + (data.get('secciones_otras') ? ` + otra: ${data.get('secciones_otras')}` : ''),
+    activos_marca: data.get('activos_marca'),
+    referencias: data.get('referencias') || '—',
+    textos_fotos: data.get('textos_fotos'),
+    dominio: data.get('dominio'),
+    comodin: data.get('comodin') || '—',
+    nombre: data.get('nombre'),
+    email: data.get('email'),
+    telefono: data.get('telefono') || '—'
+  };
+
   try{
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: data
-    });
-    const json = await res.json();
-    if(json.success){
-      okBox.style.display = 'block';
-      form.reset();
-    } else {
-      errBox.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
-      errBox.style.display = 'block';
-    }
+    // 1) Aviso interno con todos los datos
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateAdmin, templateParams);
+    // 2) Autorespuesta automática al cliente
+    await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateAutoreply, templateParams);
+
+    okBox.style.display = 'block';
+    form.reset();
   } catch(err){
     errBox.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
     errBox.style.display = 'block';
