@@ -620,9 +620,9 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
 <section id="personalizar">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">¿Ya tenés tu sitio con nosotros?</p>
+      <p class="eyebrow">Antes de arrancar el proyecto</p>
       <h2>Personalizá tu web</h2>
-      <p>¿Necesitás agregar, cambiar o sumar algo a tu sitio ya publicado? Contanos qué necesitás acá abajo y te respondemos por correo.</p>
+      <p>Completá este relevamiento con la info de tu negocio y tu proyecto. Así arrancamos con todo claro desde el día uno y evitamos que falten detalles en el camino.</p>
     </div>
 
     <div class="config-shell" style="grid-template-columns:1fr; max-width:640px;">
@@ -633,39 +633,126 @@ footer{border-top:1px solid var(--line); padding:40px 0; }
         <input type="checkbox" name="botcheck" style="display:none">
 
         <div class="step">
-          <div class="step-head"><div class="step-num">01</div><h4>Tus datos</h4></div>
+          <div class="step-head"><div class="step-num">01</div><h4>Información del cliente y negocio</h4></div>
           <div class="grid2">
             <label class="field">
-              <span class="lbl">Nombre del negocio</span>
-              <input type="text" name="negocio" required>
+              <span class="lbl">Nombre de la marca / negocio *</span>
+              <input type="text" name="marca" required>
             </label>
             <label class="field">
-              <span class="lbl">Tu nombre</span>
-              <input type="text" name="nombre" required>
+              <span class="lbl">Rubro o actividad principal *</span>
+              <input type="text" name="rubro" required>
             </label>
           </div>
+          <label class="field">
+            <span class="lbl">¿A qué público va dirigida la web? *</span>
+            <textarea name="publico" rows="2" required placeholder="Edad, zona, tipo de cliente, etc."></textarea>
+          </label>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">02</div><h4>Alcance y estructura del sitio</h4></div>
+          <label class="field">
+            <span class="lbl">¿Cuál es el objetivo principal de la web? *</span>
+            <select name="objetivo" required>
+              <option value="">Elegí una opción...</option>
+              <option value="Consultas por WhatsApp">Consultas por WhatsApp</option>
+              <option value="Captar datos con formulario">Captar datos con formulario</option>
+              <option value="Mostrar catálogo de productos o servicios">Mostrar catálogo de productos o servicios</option>
+              <option value="Vender online">Vender online</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="lbl">¿Qué secciones va a tener el sitio? *</span>
+            <div class="check-grid">
+              <label class="check-item"><input type="checkbox" name="secciones" value="Inicio"> Inicio</label>
+              <label class="check-item"><input type="checkbox" name="secciones" value="Nosotros"> Nosotros</label>
+              <label class="check-item"><input type="checkbox" name="secciones" value="Servicios"> Servicios</label>
+              <label class="check-item"><input type="checkbox" name="secciones" value="Galería"> Galería</label>
+              <label class="check-item"><input type="checkbox" name="secciones" value="Preguntas Frecuentes"> Preguntas frecuentes</label>
+              <label class="check-item"><input type="checkbox" name="secciones" value="Contacto"> Contacto</label>
+            </div>
+            <input type="text" name="secciones_otras" placeholder="¿Otra sección que no esté en la lista? Escribila acá" style="margin-top:10px;">
+          </label>
+        </div>
+
+        <div class="step">
+          <div class="step-head"><div class="step-num">03</div><h4>Identidad visual y recursos</h4></div>
+          <label class="field">
+            <span class="lbl">¿Tienen activos de marca? *</span>
+            <select name="activos_marca" required>
+              <option value="">Elegí una opción...</option>
+              <option value="Tengo logo en vector/PNG y paleta de colores">Tengo logo en vector/PNG y paleta de colores</option>
+              <option value="Tengo logo pero no paleta">Tengo logo pero no paleta</option>
+              <option value="No tengo activos de marca">No tengo activos de marca</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="lbl">Webs de referencia</span>
+            <textarea name="referencias" rows="3" placeholder="Pasame de 1 a 3 links de sitios que te gusten visualmente y contame qué te atrae de cada uno."></textarea>
+          </label>
           <div class="grid2">
             <label class="field">
-              <span class="lbl">Correo</span>
-              <input type="email" name="email" required>
+              <span class="lbl">¿Tienen textos y fotos reales listos, o usan stock? *</span>
+              <select name="textos_fotos" required>
+                <option value="">Elegí una opción...</option>
+                <option value="Tengo todo listo (textos y fotos reales)">Tengo todo listo (textos y fotos reales)</option>
+                <option value="Tengo algunos, faltan otros">Tengo algunos, faltan otros</option>
+                <option value="No, prefiero usar recursos de stock">No, prefiero usar recursos de stock</option>
+              </select>
             </label>
             <label class="field">
-              <span class="lbl">Teléfono / WhatsApp</span>
-              <input type="tel" name="telefono">
+              <span class="lbl">¿Tienen dominio web registrado (.com / .com.ar)? *</span>
+              <select name="dominio" required>
+                <option value="">Elegí una opción...</option>
+                <option value="Sí, ya tengo dominio">Sí, ya tengo dominio</option>
+                <option value="No, necesito ayuda para conseguir uno">No, necesito ayuda para conseguir uno</option>
+                <option value="No, todavía no lo necesito">No, todavía no lo necesito</option>
+              </select>
             </label>
           </div>
         </div>
 
         <div class="step">
-          <div class="step-head"><div class="step-num">02</div><h4>Qué necesitás</h4></div>
+          <div class="step-head"><div class="step-num">04</div><h4>Pregunta comodín</h4></div>
           <label class="field">
-            <span class="lbl">Contanos qué querés agregar o cambiar</span>
-            <textarea name="detalle" rows="5" required placeholder="Ej: agregar una sección de testimonios, cambiar las fotos del inicio, sumar un botón de reservas..."></textarea>
+            <span class="lbl">¿Hay alguna funcionalidad, detalle o expectativa específica que no hayamos mencionado?</span>
+            <textarea name="comodin" rows="3" placeholder="Contanos cualquier cosa puntual que tengas en mente."></textarea>
           </label>
         </div>
 
-        <div id="personalizeErr" style="display:none; color:#ff6e6e; font-size:13px; margin-bottom:12px; font-family:var(--mono);">Completá los campos obligatorios antes de enviar.</div>
-        <div id="personalizeOk" style="display:none; color:var(--ok); font-size:13px; margin-bottom:12px; font-family:var(--mono);">¡Listo! Recibimos tu solicitud, te respondemos pronto.</div>
+        <div class="step">
+          <div class="step-head"><div class="step-num">05</div><h4>Tus datos de contacto</h4></div>
+          <div class="grid2">
+            <label class="field">
+              <span class="lbl">Tu nombre *</span>
+              <input type="text" name="nombre" required>
+            </label>
+            <label class="field">
+              <span class="lbl">Correo *</span>
+              <input type="email" name="email" required>
+            </label>
+          </div>
+          <label class="field">
+            <span class="lbl">Teléfono / WhatsApp</span>
+            <input type="tel" name="telefono">
+          </label>
+        </div>
+
+        <div class="teaser" style="flex-direction:column; align-items:flex-start; gap:10px; max-width:none;">
+          <p style="font-family:var(--mono); color:var(--chrome-2); font-size:13px; line-height:1.6;">
+            <b style="color:var(--chrome-1);">Punto de corte:</b> el desarrollo se realiza sobre las secciones e indicaciones registradas en este formulario.<br>
+            <b style="color:var(--chrome-1);">Adicionales:</b> cualquier función nueva no especificada de entrada se cotiza por separado.<br>
+            <b style="color:var(--chrome-1);">Ajustes:</b> incluye una versión inicial para revisión y un margen de 24 a 48 hs de calibración/ajustes antes del lanzamiento.
+          </p>
+          <label style="display:flex; align-items:flex-start; gap:8px; font-size:13px; color:var(--chrome-2); cursor:pointer;">
+            <input type="checkbox" name="acepta_terminos" required style="margin-top:3px; accent-color:var(--signal);">
+            Leí y acepto estos términos.
+          </label>
+        </div>
+
+        <div id="personalizeErr" style="display:none; color:#ff6e6e; font-size:13px; margin:16px 0 0; font-family:var(--mono);">Completá los campos obligatorios antes de enviar.</div>
+        <div id="personalizeOk" style="display:none; color:var(--ok); font-size:13px; margin:16px 0 0; font-family:var(--mono);">¡Listo! Recibimos tu solicitud, te respondemos pronto.</div>
 
         <div class="submit-row">
           <button type="submit" class="btn btn-primary" id="personalizeBtn">Enviar solicitud →</button>
@@ -1013,8 +1100,12 @@ $('personalizeForm').addEventListener('submit', async (e) => {
   okBox.style.display = 'none';
 
   const data = new FormData(form);
-  if(!data.get('negocio') || !data.get('nombre') || !data.get('email') || !data.get('detalle')){
-    errBox.textContent = 'Completá los campos obligatorios antes de enviar.';
+  const secciones = data.getAll('secciones');
+  const required = ['marca','rubro','publico','objetivo','activos_marca','textos_fotos','dominio','nombre','email'];
+  const missing = required.some(field => !data.get(field));
+
+  if(missing || secciones.length === 0 || !data.get('acepta_terminos')){
+    errBox.textContent = 'Completá los campos obligatorios (incluida al menos una sección y la aceptación de los términos) antes de enviar.';
     errBox.style.display = 'block';
     return;
   }
